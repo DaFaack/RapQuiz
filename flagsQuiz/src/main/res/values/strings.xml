@@ -19,7 +19,6 @@
     <string name="coins_at_start">50</string> <!--muss auch in datenbank geändert werden-->
     <!--coins shop-->
     <string name="coins_for_videeoad">25</string>
-    <string name="coins_for_rating">25</string>
     <string name="coins_for_insta">15</string>
     <string name="coins_for_share">15</string>
 
@@ -45,7 +44,6 @@
     <!-- Dialogs -->
     <!-- Remember! Most buttons of dialogs are graphic buttons not texts -->
 
-    <string name="afterRatingDlg">Thanks for your rating. You got 25 coins !</string>
     <string name="updatesDlg">There are new %s flags. Download?</string>
     <string name="noUpdatesDlg">There are not any updates!</string>
     <string name="facebookHelpDlg">Ask your friends on facebook!\nCost : 5 coins</string>
@@ -56,7 +54,6 @@
     <string name="noCoinsDlg">You don\'t have enough coins!</string>
     <string name="correctDlg">Congratulations!</string>
     <string name="wrongDlg">Wrong!</string>
-    <string name="rateDlg">Please rate our app on google play!</string>
     <string name="videoAdDlg">You want to see a video ad to get 25 free coins?</string>
     <string name="resetDlg">After reset you will lose your score, coins and answers. Continue?</string>
     <string name="exitDlg">Are you sure you want to exit?</string>
@@ -87,7 +84,6 @@
 
     <!-- SHOP -->
     <string name="shopTitle">SHOP</string>
-    <string name="rateBtn">Rate</string>
     <string name="shareBtn">Share</string>
 
     <!-- Update Progress Bar Notification -->

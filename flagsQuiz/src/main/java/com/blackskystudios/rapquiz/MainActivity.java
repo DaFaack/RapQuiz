@@ -179,20 +179,6 @@ public class MainActivity extends Activity {
 
 	// =========================================================================================
 
-	public void countUsingNumForRating() {
-
-		e.putInt("usingNum", mSharedPreferences.getInt("usingNum", 0) + 1);
-		e.commit();
-
-		if (mSharedPreferences.getInt("usingNum", 0) >= 3) {
-			cd = new ConnectionDetector(MainActivity.this);
-			if (cd.isConnectingToInternet()) {
-				String msg = getResources().getString(R.string.rateDlg);
-				dialog.showDialog(R.layout.blue_dialog, "rateDlg", msg, marketLink);
-			}
-		}
-
-	}
 
 	// ==============================================================================
 

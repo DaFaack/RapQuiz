@@ -47,14 +47,12 @@ public class ShopActivity
 
 
     //rate App
-    RelativeLayout btn_rate_app;
     ConnectionDetector cd;
-    TextView rateText;
 
     RelativeLayout btn_insta, btn_share;
     TextView tv_insta, tv_share;
 
-    TextView coinfield, tv_coins_for_videoad, tv_coins_for_rate, tv_coins_for_insta, tv_coins_for_share;
+    TextView coinfield, tv_coins_for_videoad, tv_coins_for_insta, tv_coins_for_share;
 
     //setAlpha
     RelativeLayout rateRL, instaRL, shareRL;
@@ -84,38 +82,31 @@ public class ShopActivity
 
         //initialisation
         btn_videoAd = (RelativeLayout)findViewById(R.id.btn_videoAd);
-        btn_rate_app = (RelativeLayout)findViewById(R.id.btn_rate_app);
         btn_insta = (RelativeLayout)findViewById(R.id.btn_instagram);
         btn_share = (RelativeLayout)findViewById(R.id.btn_share);
         tv_insta = (TextView)findViewById(R.id.instaText);
         tv_share = (TextView)findViewById(R.id.share_text);
         coinfield = (TextView)findViewById(R.id.coinfield);
-        rateText = (TextView) findViewById(R.id.rateText);
         videoText = (TextView)findViewById(R.id.videoText);
 
         tv_coins_for_videoad = findViewById(R.id.coin_cost_videoad);
-        tv_coins_for_rate = findViewById(R.id.coin_cost_rate);
         tv_coins_for_insta = findViewById(R.id.coin_cost_insta);
         tv_coins_for_share = findViewById(R.id.coin_cost_share);
 
         tv_coins_for_videoad.setText("+" + getText(R.string.coins_for_videeoad));
-        tv_coins_for_rate.setText("+" + getText(R.string.coins_for_rating));
         tv_coins_for_insta.setText("+" + getText( R.string.coins_for_insta));
         tv_coins_for_share.setText("+" + getText(R.string.coins_for_share));
 
         tv_coins_for_videoad.setTypeface(tf);
-        tv_coins_for_rate.setTypeface(tf);
         tv_coins_for_insta.setTypeface(tf);
         tv_coins_for_share.setTypeface(tf);
 
 
-        rateText.setTypeface(tf);
         tv_insta.setTypeface(tf);
         tv_share.setTypeface(tf);
         videoText.setTypeface(tf);
 
         //setAlpha
-        rateRL = (RelativeLayout)findViewById(R.id.rateRL);
         instaRL = (RelativeLayout)findViewById(R.id.instaRL);
         shareRL = (RelativeLayout)findViewById(R.id.shareRL);
 
@@ -201,19 +192,8 @@ public class ShopActivity
         mRewardedVideoAd.loadAd(getText(R.string.videoAdID).toString(),
                 new AdRequest.Builder().build());
 
-        btn_rate_app.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                btn_rate_click();
-            }
-        });
 
 
-        if(sm.getBoolean("rate_used", getApplicationContext())){
-            btn_rate_app.setBackgroundResource(R.drawable.button_shop_diabled);
-            rateText.setAlpha(0.5f);
-            rateRL.setAlpha(0.5f);
-        }
 
         if(sm.getBoolean("sharing_used", getApplicationContext())){
             btn_share.setBackgroundResource(R.drawable.button_shop_diabled);
@@ -343,55 +323,6 @@ public class ShopActivity
         sm.playSound(R.raw.rewardsound, getApplicationContext());
         Toast.makeText(getApplicationContext(), "Congratulations, you received " + getText(R.string.coins_for_videeoad).toString() + " coins!", Toast.LENGTH_SHORT).show();
         coinfield.setText(String.valueOf(getCoinsNumber()));
-    }
-
-
-
-
-    public void btn_rate_click(){
-        cd = new ConnectionDetector(ShopActivity.this);
-        if(cd.isConnectingToInternet()&&!sm.getBoolean("rate_used", getApplicationContext())){
-            Log.i("###","connected");
-
-            Uri uriUrl = Uri.parse(getText(R.string.link_to_app).toString());
-            Intent openUrl = new Intent(Intent.ACTION_VIEW, uriUrl);
-            startActivity(openUrl);
-
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    btn_rate_app.setBackgroundResource(R.drawable.button_shop_diabled);
-                    rateText.setAlpha(0.5f);
-
-                    sm.saveBoolean("rate_used", true, getApplicationContext());
-
-
-
-                    dialog.showDialog(R.layout.blue_dialog, "afterRatingDlg", getResources().getString(R.string.afterRatingDlg), null);
-
-
-
-
-                    db.addTotalCoins(Integer.parseInt(getText(R.string.coins_for_rating).toString() ));
-                    coinfield.setText(String.valueOf(getCoinsNumber()));
-                }
-            }, 8000);
-
-
-
-        }else if(!cd.isConnectingToInternet()&&!sm.getBoolean("rate_used", getApplicationContext())){
-            AlertDialog.Builder a_builder;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                a_builder = new AlertDialog.Builder(ShopActivity.this, android.R.style.Theme_Material_Dialog_Alert);
-            } else {
-                a_builder = new AlertDialog.Builder(ShopActivity.this);
-            }
-            Toast.makeText(getApplicationContext(), "Check your internet connection", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            Toast.makeText(getApplicationContext(), "You can only submit a rating once", Toast.LENGTH_SHORT).show();
-        }
     }
 
 
